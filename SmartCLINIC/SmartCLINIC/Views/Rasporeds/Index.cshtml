@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SmartClinic.Models.Raspored>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PocetakSmjene)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KrajSmjene)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoktorId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PocetakSmjene)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KrajSmjene)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoktorId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RasporedId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RasporedId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RasporedId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
