@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmartClinic.Data;
 using SmartClinic.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace SmartClinic.Controllers
 {
     public class TerminsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public TerminsController(ApplicationDbContext context)
+        private readonly UserManager<Korisnik> _userManager;
+        public TerminsController(ApplicationDbContext context, UserManager<Korisnik> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Termins
@@ -49,7 +51,7 @@ namespace SmartClinic.Controllers
         // GET: Termins/Create
         public IActionResult Create()
         {
-            ViewData["PacijentId"] = new SelectList(_context.Korisnici, "Id", "Email");
+            ViewData["PacijentId"] = new SelectList(_userManager.Users, "Id", "Email");
             ViewData["UslugaId"] = new SelectList(_context.UslugeKlinike, "UslugaId", "Naziv");
             return View();
         }
@@ -67,7 +69,7 @@ namespace SmartClinic.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PacijentId"] = new SelectList(_context.Korisnici, "Id", "Email", termin.PacijentId);
+            ViewData["PacijentId"] = new SelectList(_userManager.Users, "Id", "Email", termin.PacijentId);
             ViewData["UslugaId"] = new SelectList(_context.UslugeKlinike, "UslugaId", "Naziv", termin.UslugaId);
             return View(termin);
         }
@@ -85,7 +87,7 @@ namespace SmartClinic.Controllers
             {
                 return NotFound();
             }
-            ViewData["PacijentId"] = new SelectList(_context.Korisnici, "Id", "Email", termin.PacijentId);
+            ViewData["PacijentId"] = new SelectList(_userManager.Users, "Id", "Email", termin.PacijentId);
             ViewData["UslugaId"] = new SelectList(_context.UslugeKlinike, "UslugaId", "Naziv", termin.UslugaId);
             return View(termin);
         }
@@ -122,7 +124,7 @@ namespace SmartClinic.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PacijentId"] = new SelectList(_context.Korisnici, "Id", "Email", termin.PacijentId);
+            ViewData["PacijentId"] = new SelectList(_userManager.Users, "Id", "Email", termin.PacijentId);
             ViewData["UslugaId"] = new SelectList(_context.UslugeKlinike, "UslugaId", "Naziv", termin.UslugaId);
             return View(termin);
         }

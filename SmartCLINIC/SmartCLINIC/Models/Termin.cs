@@ -18,9 +18,9 @@
             [Required]
             public StatusTermina Status { get; set; }
 
-            public int PacijentId { get; set; }
+        public string PacijentId { get; set; }
 
-            [ForeignKey("PacijentId")]
+        [ForeignKey("PacijentId")]
             public Korisnik? Pacijent { get; set; }
 
             public int DoktorId { get; set; }
