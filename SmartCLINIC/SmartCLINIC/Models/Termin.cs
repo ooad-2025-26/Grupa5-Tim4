@@ -23,9 +23,13 @@
         [ForeignKey("PacijentId")]
             public Korisnik? Pacijent { get; set; }
 
-            public int DoktorId { get; set; }
+        [Required]
+        public string DoktorId { get; set; }
 
-            public int UslugaId { get; set; }
+        [ForeignKey("DoktorId")]
+        public Korisnik? Doktor { get; set; }
+
+        public int UslugaId { get; set; }
 
             [ForeignKey("UslugaId")]
             public UslugaKlinike? UslugaKlinike { get; set; }
