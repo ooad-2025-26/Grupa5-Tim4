@@ -1,0 +1,217 @@
+﻿@{
+    ViewData["Title"] = "O nama";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/onama.css" />
+}
+
+<div class="about-page">
+
+    <div class="about-overlay"></div>
+
+    <div class="about-content">
+
+        <!-- NAVBAR -->
+
+        <nav class="top-nav">
+
+            <div class="brand">
+
+                <div class="logo">
+                    +
+                </div>
+
+                <span>
+                    SmartCLINIC
+                </span>
+
+            </div>
+
+            <div class="nav-links">
+
+                <a asp-controller="Home"
+                   asp-action="Index">
+
+                    Početna
+
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Usluge">
+
+                    Usluge
+
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="ONama">
+
+                    O nama
+
+                </a>
+
+                <a asp-controller="Home" asp-action="Kontakt">
+                    Kontakt
+                </a>
+
+                <a class="login-btn"
+                   asp-area="Identity"
+                   asp-page="/Account/Login">
+
+                    Prijava
+
+                </a>
+
+            </div>
+
+        </nav>
+
+        <!-- ABOUT -->
+
+        <section class="about-section">
+
+            <div class="about-left">
+
+                <h1>
+                    O nama
+                </h1>
+
+                <p>
+                    SmartClinic je moderna digitalna platforma
+                    koja korisnicima omogućava brzo,
+                    jednostavno i sigurno zakazivanje
+                    medicinskih pregleda bez dugog čekanja
+                    i nepotrebnih telefonskih poziva.
+                </p>
+
+                <div class="about-extra">
+
+                    <div class="extra-box">
+
+                        <h3>
+                            Zašto odabrati SmartClinic?
+                        </h3>
+
+                        <p>
+                            Naša platforma koristi savremene tehnologije
+                            kako bi pacijentima omogućila brzo pronalaženje
+                            odgovarajućih specijalista, jednostavno upravljanje
+                            terminima i sigurnu evidenciju medicinskih podataka.
+                        </p>
+
+                    </div>
+
+                    <div class="extra-box">
+
+                        <h3>
+                            Stručno osoblje i moderna oprema
+                        </h3>
+
+                        <p>
+                            Sarađujemo sa iskusnim medicinskim stručnjacima
+                            i klinikama koje koriste vrhunsku dijagnostičku
+                            i laboratorijsku opremu kako bismo osigurali
+                            kvalitetnu i pouzdanu zdravstvenu uslugu.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="about-right">
+
+                <img src="/images/about-doctors.png"
+                     class="about-image" />
+
+                <div class="stats-card">
+
+                    <img src="/images/booking.png"
+                         class="stats-icon" />
+
+                    <div>
+
+                        <h3>
+                            1000+ Zakazanih pregleda
+                        </h3>
+
+                        <p>
+                            Korisnici svakodnevno koriste SmartClinic
+                            platformu za brzo i jednostavno zakazivanje termina.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- HOW IT WORKS -->
+
+        <section class="how-section">
+
+            <h2>
+                Kako SmartClinic radi?
+            </h2>
+
+            <div class="steps">
+
+                <div class="step-card">
+
+                    <img src="/images/login-step.png"
+                         class="step-img" />
+
+                    <h3>
+                        Prijavite se
+                    </h3>
+
+                    <p>
+                        Kreirajte nalog i pristupite
+                        digitalnoj klinici u nekoliko klikova.
+                    </p>
+
+                </div>
+
+                <div class="step-card">
+
+                    <img src="/images/doctor-step.png"
+                         class="step-img" />
+
+                    <h3>
+                        Izaberite doktora
+                    </h3>
+
+                    <p>
+                        Pregledajte dostupne stručnjake
+                        i pronađite odgovarajuću medicinsku uslugu.
+                    </p>
+
+                </div>
+
+                <div class="step-card">
+
+                    <img src="/images/calendar-step.png"
+                         class="step-img" />
+
+                    <h3>
+                        Zakažite termin
+                    </h3>
+
+                    <p>
+                        Odaberite termin koji vam odgovara
+                        i rezervišite pregled online.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>

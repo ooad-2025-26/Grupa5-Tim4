@@ -1,5 +1,6 @@
 ﻿namespace SmartClinic.Models
 {
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -35,6 +36,9 @@
             public UslugaKlinike? UslugaKlinike { get; set; }
 
             public QRKod? QRKod { get; set; }
+        public List<SelectListItem> Doktori { get; set; }
+        public List<SelectListItem> Usluge { get; set; }
+        public List<SelectListItem> VrijemeOpcije { get; set; }
 
         public bool JeZakazan()
         {

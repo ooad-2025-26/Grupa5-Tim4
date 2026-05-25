@@ -21,5 +21,24 @@ namespace SmartClinic.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Usluge()
+        {
+            return View();
+        }
+
+        public IActionResult DetaljiUsluge(string naziv)
+        {
+            ViewBag.Naziv = naziv;
+            return View();
+        }
+        public IActionResult ONama()
+        {
+            return View();
+        }
+        public IActionResult Kontakt()
+        {
+            return View();
+        }
     }
 }

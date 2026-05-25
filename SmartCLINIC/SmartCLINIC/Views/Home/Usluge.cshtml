@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Usluge";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/usluge.css" />
+}
+
+<div class="services-page">
+
+    <nav class="services-nav">
+        <div class="service-brand">
+            <div class="small-logo">✚</div>
+            <span>SmartClinic</span>
+        </div>
+
+        <div class="service-links">
+            <a asp-controller="Home" asp-action="Index">Početna</a>
+            <a class="active" asp-controller="Home" asp-action="Usluge">Usluge</a>
+            <a asp-controller="Home" asp-action="ONama">
+                O nama
+            </a>
+            <a asp-controller="Home" asp-action="Kontakt">
+                Kontakt
+            </a>
+            <a asp-area="Identity" asp-page="/Account/Login">Prijava</a>
+            <a class="register-link" asp-area="Identity" asp-page="/Account/Register">Registracija</a>
+        </div>
+    </nav>
+
+    <section class="services-header">
+        <h1>Naše usluge</h1>
+        <p>
+            Naš stručni medicinski tim i savremena oprema
+            omogućavaju kvalitetnu, sigurnu i pouzdanu zdravstvenu uslugu.
+        </p>
+    </section>
+
+    <section class="services-grid">
+
+        @{
+            var usluge = new[]
+            {
+                new { Naziv="Opća praksa", Ikona="🩺", Opis="Primarni pregledi, savjetovanje i briga o općem zdravstvenom stanju." },
+                new { Naziv="Kardiologija", Ikona="💙", Opis="Specijalistički pregledi srca i kardiovaskularnog sistema." },
+                new { Naziv="Stomatologija", Ikona="🦷", Opis="Sveobuhvatne stomatološke usluge za zdravlje vaših zuba." },
+                new { Naziv="Dermatologija", Ikona="🔬", Opis="Pregledi i terapija za kožna stanja i oboljenja." },
+                new { Naziv="Ginekologija", Ikona="🩻", Opis="Ginekološka njega, pregledi i stručno savjetovanje." },
+                new { Naziv="Pedijatrija", Ikona="🧸", Opis="Preventivni i kurativni pregledi za najmlađe pacijente." },
+                new { Naziv="Laboratorijske analize", Ikona="🧪", Opis="Širok spektar laboratorijskih testova za preciznu dijagnostiku." },
+                new { Naziv="Radiologija", Ikona="🩻", Opis="Dijagnostika putem X-ray, ultrazvuka, CT i MRI pregleda." },
+                new { Naziv="Ortopedija", Ikona="🦴", Opis="Pregledi i liječenje povreda kostiju, zglobova i mišića." },
+                new { Naziv="Neurologija", Ikona="🧠", Opis="Dijagnostika i liječenje bolesti nervnog sistema." },
+                new { Naziv="Oftalmologija", Ikona="👁️", Opis="Pregledi vida i liječenje očnih oboljenja." },
+                new { Naziv="Urologija", Ikona="🫘", Opis="Dijagnostika i liječenje uroloških problema." }
+            };
+        }
+
+        @foreach (var usluga in usluge)
+        {
+            <a class="service-card"
+               asp-controller="Home"
+               asp-action="DetaljiUsluge"
+               asp-route-naziv="@usluga.Naziv">
+
+                <div class="service-icon">@usluga.Ikona</div>
+
+                <div>
+                    <h3>@usluga.Naziv</h3>
+                    <p>@usluga.Opis</p>
+                </div>
+
+            </a>
+        }
+
+    </section>
+
+</div>
+

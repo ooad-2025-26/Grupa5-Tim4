@@ -1,0 +1,245 @@
+﻿@{
+    ViewData["Title"] = "Detalji usluge";
+
+    var naziv = ViewBag.Naziv as string ?? "";
+
+    string opis = "";
+    string slika = "";
+    List<(string Usluga, string Cijena, string Trajanje)> stavke = new();
+
+    switch (naziv)
+    {
+        case "Opća praksa":
+            opis = "Usluge opće prakse obuhvataju osnovne preglede, savjetovanje i praćenje općeg zdravstvenog stanja pacijenta.";
+            slika = "/images/opcapraksa.png";
+            stavke = new()
+            {
+                ("Pregled doktora opće prakse", "30 KM", "20 min"),
+                ("Kontrolni pregled", "20 KM", "15 min"),
+                ("Mjerenje krvnog pritiska i savjetovanje", "10 KM", "10 min"),
+                ("Izdavanje ljekarskog uvjerenja", "35 KM", "20 min")
+            };
+            break;
+
+        case "Kardiologija":
+            opis = "Kardiologija obuhvata dijagnostiku i praćenje bolesti srca i krvnih sudova.";
+            slika = "/images/kardiologija.png";
+            stavke = new()
+            {
+                ("Kardiološki pregled", "80 KM", "45 min"),
+                ("EKG snimanje", "25 KM", "15 min"),
+                ("Ultrazvuk srca", "100 KM", "45 min"),
+                ("Holter EKG", "120 KM", "24 h"),
+                ("Kontrola srčane terapije", "45 KM", "20 min"),
+                ("Test opterećenja", "130 KM", "60 min")
+            };
+            break;
+
+        case "Stomatologija":
+            opis = "Stomatološke usluge obuhvataju preglede, popravke i preventivnu njegu zuba.";
+            slika = "/images/stomatologija.png";
+            stavke = new()
+            {
+                ("Stomatološki pregled", "25 KM", "15 min"),
+                ("Čišćenje kamenca", "50 KM", "30 min"),
+                ("Popravka zuba", "60 KM", "45 min"),
+                ("Vađenje zuba", "70 KM", "30 min"),
+                ("3D snimanje zuba", "80 KM", "20 min"),
+                ("Izbjeljivanje zuba", "150 KM", "60 min"),
+                 ("Liječenje karijesa", "65 KM", "35 min")
+            };
+            break;
+
+        case "Dermatologija":
+            opis = "Dermatologija se bavi pregledom, dijagnostikom i tretmanom kožnih promjena i oboljenja.";
+            slika = "/images/dermatologija.png";
+            stavke = new()
+            {
+                ("Dermatološki pregled", "60 KM", "30 min"),
+                ("Pregled mladeža", "50 KM", "25 min"),
+                ("Tretman akni", "70 KM", "40 min"),
+                ("Alergološko savjetovanje kože", "45 KM", "25 min"),
+                ("Uklanjanje bradavica", "90 KM", "35 min")
+            };
+            break;
+
+        case "Ginekologija":
+            opis = "Ginekologija uključuje preventivne preglede, dijagnostiku i savjetovanje vezano za žensko zdravlje.";
+            slika = "/images/ginekologija.png";
+            stavke = new()
+            {
+                ("Ginekološki pregled", "70 KM", "30 min"),
+                ("PAPA test", "35 KM", "20 min"),
+                ("Ginekološki ultrazvuk", "60 KM", "30 min"),
+                ("Savjetovanje", "30 KM", "20 min"),
+                ("4D ultrazvuk", "120 KM", "45 min"),
+                ("Savjetovanje o kontracepciji", "35 KM", "20 min"),
+                ("Kolposkopija", "90 KM", "30 min")
+            };
+            break;
+
+        case "Pedijatrija":
+            opis = "Pedijatrija obuhvata zdravstvenu njegu djece, preventivne i kontrolne preglede.";
+            slika = "/images/pedijatrija.png";
+            stavke = new()
+            {
+                ("Pedijatrijski pregled", "40 KM", "25 min"),
+                ("Kontrola rasta i razvoja", "30 KM", "20 min"),
+                ("Savjetovanje za ishranu djeteta", "25 KM", "20 min"),
+                ("Pregled pred vakcinaciju", "35 KM", "20 min"),
+                ("Alergotest za djecu", "60 KM", "30 min")
+            };
+            break;
+
+        case "Laboratorijske analize":
+            opis = "Laboratorijske analize omogućavaju brzu i preciznu dijagnostiku na osnovu uzoraka krvi i drugih bioloških materijala.";
+            slika = "/images/lab.png";
+            stavke = new()
+            {
+                ("Kompletna krvna slika", "15 KM", "10 min"),
+                ("Hormoni štitne žlijezde", "45 KM", "15 min"),
+                ("Biohemijske analize", "35 KM", "15 min"),
+                ("Analiza urina", "10 KM", "10 min"),
+                ("Lipidni status", "25 KM", "10 min"),
+                ("Tumorski markeri", "120 KM", "15 min"),
+                ("Vitamin D analiza", "35 KM", "10 min")
+            };
+            break;
+
+        case "Radiologija":
+            opis = "Radiologija pruža dijagnostičke preglede pomoću savremene medicinske opreme.";
+            slika = "/images/radiologija.png";
+            stavke = new()
+            {
+                ("Ultrazvuk abdomena", "80 KM", "30 min"),
+                ("RTG snimak", "50 KM", "20 min"),
+                ("CT pregled", "180 KM", "45 min"),
+                ("MRI pregled", "250 KM", "60 min"),
+                ("Ultrazvuk abdomena", "80 KM", "30 min"),
+                ("MRI mozga", "280 KM", "60 min"),
+                ("CT pluća", "190 KM", "40 min"),
+                ("Ultrazvuk štitne žlijezde", "75 KM", "25 min"),
+                ("RTG kičme", "55 KM", "20 min")
+            };
+            break;
+
+        case "Ortopedija":
+            opis = "Ortopedija se bavi pregledom i liječenjem povreda i oboljenja kostiju, zglobova i mišića.";
+            slika = "/images/ortopedija.png";
+            stavke = new()
+            {
+                ("Ortopedski pregled", "75 KM", "35 min"),
+                ("Pregled povrede zgloba", "60 KM", "30 min"),
+                ("Kontrola nakon povrede", "35 KM", "20 min"),
+                ("Ortopedski ultrazvuk", "80 KM", "35 min"),
+                ("Pregled kičme", "90 KM", "40 min"),
+                ("Sportska ortopedija", "110 KM", "45 min"),
+                ("Tretman istegnuća", "50 KM", "25 min"),
+                ("Savjetovanje za fizikalnu terapiju", "30 KM", "20 min")
+            };
+            break;
+
+        case "Neurologija":
+            opis = "Neurologija obuhvata dijagnostiku i tretman bolesti nervnog sistema.";
+            slika = "/images/neurologija.png";
+            stavke = new()
+            {
+                ("Neurološki pregled", "85 KM", "45 min"),
+                ("EEG dijagnostika", "120 KM", "60 min"),
+                ("EMNG pregled", "140 KM", "50 min"),
+                ("Pregled zbog migrena", "70 KM", "30 min"),
+                ("Neuromuskularna procjena", "95 KM", "40 min"),
+                ("Kontrola terapije", "40 KM", "25 min"),
+            };
+            break;
+
+        case "Oftalmologija":
+            opis = "Oftalmologija uključuje preglede vida, očnog pritiska i dijagnostiku očnih oboljenja.";
+            slika = "/images/oftalmologija.png";
+            stavke = new()
+            {
+                ("Oftalmološki pregled", "55 KM", "30 min"),
+                ("Određivanje dioptrije", "30 KM", "20 min"),
+                ("Mjerenje očnog pritiska", "25 KM", "15 min"),
+                ("Pregled očnog dna", "60 KM", "30 min"),
+                ("Laserska dijagnostika oka", "120 KM", "40 min"),
+                ("Kontrola dioptrije", "20 KM", "15 min"),
+            };
+            break;
+
+        case "Urologija":
+            opis = "Urologija se bavi pregledom i liječenjem urinarnog sistema.";
+            slika = "/images/urologija.png";
+            stavke = new()
+            {
+                ("Urološki pregled", "65 KM", "35 min"),
+                ("Ultrazvuk urinarnog sistema", "70 KM", "30 min"),
+                ("Analiza uroloških nalaza", "30 KM", "20 min"),
+                ("Kontrolni urološki pregled", "35 KM", "20 min"),
+                ("Kontrola bubrežnih funkcija", "55 KM", "20 min"),
+                ("Pregled prostate", "85 KM", "35 min")
+            };
+            break;
+    }
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/usluge.css" />
+}
+
+<div class="details-page">
+
+    <div class="details-card">
+
+        <a class="back-link"
+           asp-controller="Home"
+           asp-action="Usluge">
+            ← Nazad na usluge
+        </a>
+
+        <div class="details-top">
+
+            <div class="details-info">
+                <h1>@naziv</h1>
+
+                <p class="details-description">
+                    @opis
+                </p>
+            </div>
+
+            <img src="@slika" alt="@naziv" class="details-image" />
+
+        </div>
+
+        <div class="price-section">
+
+            <h2>Cjenovnik usluga</h2>
+
+            <table>
+                <tr>
+                    <th>Usluga</th>
+                    <th>Cijena</th>
+                    <th>Trajanje</th>
+                </tr>
+
+                @foreach (var stavka in stavke)
+                {
+                    <tr>
+                        <td>@stavka.Usluga</td>
+                        <td>@stavka.Cijena</td>
+                        <td>@stavka.Trajanje</td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+
+        <a class="book-btn"
+           asp-controller="Termins"
+           asp-action="Create">
+            Zakaži termin
+        </a>
+
+    </div>
+
+</div>

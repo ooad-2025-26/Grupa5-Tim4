@@ -1,0 +1,160 @@
+﻿@{
+    ViewData["Title"] = "Kontakt";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/kontakt.css" />
+}
+
+<div class="contact-page">
+
+    <!-- NAVBAR -->
+
+    <nav class="top-nav">
+
+        <div class="brand">
+
+            <div class="logo">
+                +
+            </div>
+
+            <span>
+                SmartCLINIC
+            </span>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a asp-controller="Home"
+               asp-action="Index">
+
+                Početna
+
+            </a>
+
+            <a asp-controller="Home"
+               asp-action="Usluge">
+
+                Usluge
+
+            </a>
+
+            <a asp-controller="Home"
+               asp-action="ONama">
+
+                O nama
+
+            </a>
+
+            <a asp-controller="Home"
+               asp-action="Kontakt">
+
+                Kontakt
+
+            </a>
+
+            <a class="login-btn"
+               asp-area="Identity"
+               asp-page="/Account/Login">
+
+                Prijava
+
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- CONTACT -->
+
+    <section class="contact-section">
+
+        <!-- LEFT -->
+
+        <div class="contact-left">
+
+            <h1>
+                Kontaktirajte nas
+            </h1>
+
+            <div class="contact-form">
+
+                <input type="text"
+                       placeholder="Ime i prezime" />
+
+                <input type="email"
+                       placeholder="Email adresa" />
+
+                <textarea placeholder="Vaša poruka"></textarea>
+
+                <button>
+                    Pošaljite nam poruku
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="contact-right">
+
+            <a class="map-card"
+               href="https://www.google.com/maps/search/?api=1&query=Grbavi%C4%8Dka%204%2C%20Sarajevo%2071000"
+               target="_blank">
+
+                <iframe class="map-frame"
+                        src="https://www.google.com/maps?q=Grbavi%C4%8Dka%204%2C%20Sarajevo%2071000&output=embed"
+                        loading="lazy">
+                </iframe>
+
+                <p>
+                    Adresa: Grbavička 4, Sarajevo 71000
+                </p>
+
+            </a>
+
+            <div class="info-card">
+
+                <div class="info-box">
+
+                    <h3>
+                        Radno vrijeme
+                    </h3>
+
+                    <p>
+                        Pon-Pet: 08:00-21:00
+                    </p>
+
+                    <p>
+                        Sub: 09:00-16:00
+                    </p>
+
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="info-box">
+
+                    <h3>
+                        Kontakt
+                    </h3>
+
+                    <p>
+                        Broj: +387 33 456 789
+                    </p>
+
+                    <p>
+                        Mail: info@smartclinic.ba
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>

@@ -1,8 +1,207 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Početna";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Styles {
+    <link rel="stylesheet" href="/css/home.css" />
+}
+
+<div class="hero-page"
+     style="position:relative;
+    overflow:hidden;
+    min-height:100vh;">
+
+    <!-- VIDEO POZADINA -->
+
+    <video autoplay muted loop playsinline
+           style="
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        z-index:0;
+        opacity:0.32;
+        filter:blur(1px) brightness(0.8);">
+
+        <source src="/videos/hospital-bg.mp4"
+                type="video/mp4" />
+
+    </video>
+
+    <!-- PLAVI OVERLAY -->
+
+    <div style="
+        position:absolute;
+        inset:0;
+        z-index:1;
+        background:linear-gradient(
+        135deg,
+        rgba(220,236,251,0.55),
+        rgba(139,178,216,0.45)
+        );">
+    </div>
+
+    <!-- SAV SADRŽAJ -->
+
+    <div class="content-layer"
+         style="position:relative;
+        z-index:2;">
+
+        <!-- NAVBAR -->
+
+        <nav class="top-nav">
+
+            <div class="brand">
+
+                <div class="logo">
+                    +
+                </div>
+
+                <span>
+                    SmartCLINIC
+                </span>
+
+            </div>
+
+            <div class="nav-links">
+
+                <a asp-controller="Home"
+                   asp-action="Index">
+
+                    Početna stranica
+
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Usluge">
+
+                    Usluge
+
+                </a>
+
+                <a asp-controller="Home" asp-action="ONama">
+                    O nama
+                </a>
+
+                <a asp-controller="Home" asp-action="Kontakt">
+                    Kontakt
+                </a>
+
+                <a class="login-btn"
+                   asp-area="Identity"
+                   asp-page="/Account/Login">
+
+                    Prijava
+
+                </a>
+
+            </div>
+
+        </nav>
+
+        <!-- HERO -->
+
+        <section class="hero-content">
+
+            <div class="hero-text">
+
+                <p class="subtitle">
+                    Digitalna klinika za brzo zakazivanje termina
+                </p>
+
+                <h1>
+                    SmartClinic vam omogućava brzo i jednostavno zakazivanje pregleda.
+                </h1>
+
+                <div class="hero-buttons">
+
+                    <a class="primary-btn"
+                       asp-area="Identity"
+                       asp-page="/Account/Register">
+
+                        Registracija
+
+                    </a>
+
+                    <a class="secondary-btn"
+                       asp-controller="Home"
+                       asp-action="Usluge">
+
+                        Saznajte više...
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- KARTICE -->
+
+        <section class="features">
+
+            <div class="feature-card">
+
+                <img src="/images/booking.png"
+                     class="feature-img" />
+
+                <div>
+
+                    <h3>
+                        Brzo zakazivanje
+                    </h3>
+
+                    <p>
+                        Zakažite pregled u nekoliko klikova.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="feature-card">
+
+                <img src="/images/schedule.png"
+                     class="feature-img" />
+
+                <div>
+
+                    <h3>
+                        Pregled termina
+                    </h3>
+
+                    <p>
+                        Jednostavno pratite dostupne termine.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="feature-card">
+
+                <img src="/images/security.png"
+                     class="feature-img" />
+
+                <div>
+
+                    <h3>
+                        Sigurna evidencija
+                    </h3>
+
+                    <p>
+                        Vaši podaci su zaštićeni i pregledno organizovani.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
 </div>
