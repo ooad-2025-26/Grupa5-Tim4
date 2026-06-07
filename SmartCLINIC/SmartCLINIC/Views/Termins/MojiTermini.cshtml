@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SmartClinic.Models.Termin>
+
+@{
+    ViewData["Title"] = "Moji termini";
+}
+
+<div class="appointment-page">
+    <div class="appointment-card">
+
+        <h1>Moji termini</h1>
+
+        @if (!Model.Any())
+        {
+            <p>Nemate zakazanih termina.</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Usluga</th>
+                        <th>Doktor</th>
+                        <th>Datum</th>
+                        <th>Vrijeme</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var termin in Model)
+                    {
+                        <tr>
+                            <td>@termin.UslugaKlinike?.Naziv</td>
+                            <td>@termin.Doktor?.Ime @termin.Doktor?.Prezime</td>
+                            <td>@termin.Datum.ToString("dd.MM.yyyy")</td>
+                            <td>@termin.Vrijeme</td>
+                            <td>@termin.Status</td>
+
+                            <td>
+
+                              
+                                @if (termin.Status != StatusTermina.Otkazan)
+                                {
+                                    <a asp-action="IzmijeniTermin"
+                                       asp-route-id="@termin.TerminId"
+                                       class="btn btn-warning">
+                                        Izmijeni
+                                    </a>
+
+                                    <a asp-action="OtkaziTermin"
+                                       asp-route-id="@termin.TerminId"
+                                       class="btn btn-danger">
+                                        Otkaži
+                                    </a>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>

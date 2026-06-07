@@ -13,6 +13,8 @@ namespace SmartClinic.Models
 
         public string? Uloga { get; set; }
 
+        public string? Specijalizacija { get; set; }
+
         public ICollection<Termin>? PacijentTermini { get; set; }
 
         public ICollection<Termin>? DoktorTermini { get; set; }

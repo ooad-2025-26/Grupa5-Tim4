@@ -1,0 +1,62 @@
+﻿@model SmartClinic.Models.ViewModels.TerminViewModel
+
+@{
+    ViewData["Title"] = "Izmijeni termin";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/termini.css" />
+}
+
+<div class="appointment-page">
+    <div class="appointment-card">
+
+        <h1>Izmijeni termin</h1>
+
+        <form asp-action="IzmijeniTermin" method="post">
+
+            <input type="hidden" name="id" value="@ViewBag.TerminId" />
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="UslugaId"></label>
+                <select asp-for="UslugaId" asp-items="Model.Usluge" class="form-control">
+                    <option value="">-- Odaberite uslugu --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DoktorId"></label>
+                <select asp-for="DoktorId"
+                        asp-items="Model.Doktori"
+                        class="form-control"
+                        id="DoktorId">
+                    <option value="">-- Odaberite doktora --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Datum"></label>
+                <input asp-for="Datum" type="date" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Vrijeme"></label>
+                <select asp-for="Vrijeme" asp-items="Model.VrijemeOpcije" class="form-control">
+                    <option value="">-- Odaberite vrijeme --</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary">
+                Sačuvaj izmjene
+            </button>
+
+            <a asp-action="MojiTermini" class="back-btn">
+                Nazad
+            </a>
+
+        </form>
+
+    </div>
+</div>

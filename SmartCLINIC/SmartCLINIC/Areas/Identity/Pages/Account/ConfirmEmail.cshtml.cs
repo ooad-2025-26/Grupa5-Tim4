@@ -1,24 +1,25 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using SmartClinic.Data;
-
+using SmartClinic.Models;
+using System;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SmartClinic.Models;
 namespace SmartClinic.Areas.Identity.Pages.Account;
 
 public class ConfirmEmailModel : PageModel
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<Korisnik> _userManager;
 
-    public ConfirmEmailModel(UserManager<ApplicationUser> userManager)
+    public ConfirmEmailModel(UserManager<Korisnik> userManager)
     {
         _userManager = userManager;
     }

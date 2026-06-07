@@ -86,7 +86,7 @@ namespace SmartClinic.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UslugaId,Naziv,Opis,TrajanjeUsluge,Cijena")] UslugaKlinike uslugaKlinike)
+        public async Task<IActionResult> Edit(int id, [Bind("UslugaId,Naziv,Opis,TrajanjeUsluge,Cijena,Oblast")] UslugaKlinike uslugaKlinike)
         {
             if (id != uslugaKlinike.UslugaId)
             {

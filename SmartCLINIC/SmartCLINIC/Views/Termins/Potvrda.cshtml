@@ -1,0 +1,39 @@
+﻿@model SmartClinic.Models.Termin
+
+@{
+    ViewData["Title"] = "Termin zakazan";
+    var qrKod = ViewBag.QRKod as SmartClinic.Models.QRKod;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/termini.css" />
+}
+
+<div class="confirm-page">
+    <div class="confirm-card">
+
+        <h1>Termin je uspješno zakazan</h1>
+
+        <div>
+            <p><strong>Usluga:</strong> @Model.UslugaKlinike?.Naziv</p>
+            <p><strong>Doktor:</strong> @Model.Doktor?.Ime @Model.Doktor?.Prezime</p>
+            <p><strong>Datum:</strong> @Model.Datum.ToString("dd.MM.yyyy")</p>
+            <p><strong>Vrijeme:</strong> @Model.Vrijeme</p>
+        </div>
+
+        @if (qrKod != null)
+        {
+            <h3>Vaš QR kod:</h3>
+            <img src="data:image/png;base64,@qrKod.VrijednostKoda" width="220" />
+        }
+
+        <div style="margin-top: 30px;">
+            <a asp-controller="Termins"
+               asp-action="MojiTermini"
+               class="view-terms-btn">
+                Pogledaj svoje termine
+            </a>
+        </div>
+
+    </div>
+</div>

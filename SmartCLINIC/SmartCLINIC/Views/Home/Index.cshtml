@@ -3,7 +3,9 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="/css/home.css" />
+
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+
 }
 
 <div class="hero-page"
@@ -89,13 +91,30 @@
                     Kontakt
                 </a>
 
-                <a class="login-btn"
-                   asp-area="Identity"
-                   asp-page="/Account/Login">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("Pacijent"))
+                    {
+                        <a asp-controller="Termins"
+                           asp-action="MojiTermini">
+                            Moji termini
+                        </a>
+                    }
 
-                    Prijava
-
-                </a>
+                    <a class="login-btn"
+                       asp-area="Identity"
+                       asp-page="/Account/Logout">
+                        Odjava
+                    </a>
+                }
+                else
+                {
+                    <a class="login-btn"
+                       asp-area="Identity"
+                       asp-page="/Account/Login">
+                        Prijava
+                    </a>
+                }
 
             </div>
 
@@ -125,12 +144,10 @@
 
                     </a>
 
-                    <a class="secondary-btn"
-                       asp-controller="Home"
-                       asp-action="Usluge">
-
-                        Saznajte više...
-
+                    <a asp-area="Identity"
+                       asp-page="/Account/Login"
+                       class="secondary-btn">
+                        Prijava
                     </a>
 
                 </div>

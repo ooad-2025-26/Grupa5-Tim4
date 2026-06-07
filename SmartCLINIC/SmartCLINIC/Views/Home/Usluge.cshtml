@@ -26,6 +26,14 @@
             </a>
             <a asp-area="Identity" asp-page="/Account/Login">Prijava</a>
             <a class="register-link" asp-area="Identity" asp-page="/Account/Register">Registracija</a>
+
+            @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Pacijent"))
+            {
+                <a asp-controller="Termins"
+                   asp-action="MojiTermini">
+                    Moji termini
+                </a>
+            }
         </div>
     </nav>
 

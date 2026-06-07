@@ -1,28 +1,29 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartClinic.Data;
+using SmartClinic.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartClinic.Areas.Identity.Pages.Account.Manage;
 
 public class ExternalLoginsModel : PageModel
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly IUserStore<ApplicationUser> _userStore;
+    private readonly UserManager<Korisnik> _userManager;
+    private readonly SignInManager<Korisnik> _signInManager;
+    private readonly IUserStore<Korisnik> _userStore;
 
     public ExternalLoginsModel(
-        UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager,
-        IUserStore<ApplicationUser> userStore)
+        UserManager<Korisnik> userManager,
+        SignInManager<Korisnik> signInManager,
+        IUserStore<Korisnik> userStore)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -68,7 +69,7 @@ public class ExternalLoginsModel : PageModel
             .ToList();
 
         string? passwordHash = null;
-        if (_userStore is IUserPasswordStore<ApplicationUser> userPasswordStore)
+        if (_userStore is IUserPasswordStore<Korisnik> userPasswordStore)
         {
             passwordHash = await userPasswordStore.GetPasswordHashAsync(user, HttpContext.RequestAborted);
         }

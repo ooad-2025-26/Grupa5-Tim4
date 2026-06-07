@@ -1,11 +1,17 @@
-﻿namespace SmartClinic.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SmartClinic.Models
 {
    
         public enum StatusUredjaja
         {
-            Aktivan,
-            Neaktivan,
-            Kvar
+        [Display(Name = "Aktivan")]
+        Aktivan,
+
+        [Display(Name = "Neaktivan")]
+        Neaktivan,
+        [Display(Name = "Kvar")]
+        Kvar
         }
   
 }

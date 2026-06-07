@@ -1,0 +1,49 @@
+﻿@model SmartClinic.Models.Termin
+
+@{
+    ViewData["Title"] = "Otkaži termin";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/termini.css" />
+}
+
+<div class="confirm-page">
+    <div class="confirm-card">
+
+        <h1>Otkaži termin</h1>
+
+        <p>Da li ste sigurni da želite otkazati ovaj termin?</p>
+
+        <div class="confirm-details">
+            <div class="detail-row">
+                <strong>Usluga:</strong> @Model.UslugaKlinike?.Naziv
+            </div>
+
+            <div class="detail-row">
+                <strong>Doktor:</strong> @Model.Doktor?.Ime @Model.Doktor?.Prezime
+            </div>
+
+            <div class="detail-row">
+                <strong>Datum:</strong> @Model.Datum.ToString("dd.MM.yyyy")
+            </div>
+
+            <div class="detail-row">
+                <strong>Vrijeme:</strong> @Model.Vrijeme
+            </div>
+        </div>
+
+        <form asp-action="OtkaziTermin" method="post">
+            <input type="hidden" name="id" value="@Model.TerminId" />
+
+            <button type="submit" class="btn-danger-custom">
+                Da, otkaži termin
+            </button>
+
+            <a asp-action="MojiTermini" class="back-btn">
+                Nazad
+            </a>
+        </form>
+
+    </div>
+</div>

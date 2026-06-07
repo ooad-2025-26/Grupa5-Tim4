@@ -35,6 +35,7 @@ namespace SmartClinic.Data
                 b.Property(u => u.Ime);
                 b.Property(u => u.Prezime);
                 b.Property(u => u.Uloga);
+                b.Property(u => u.Specijalizacija);
             });
 
             modelBuilder.Entity<Termin>()

@@ -21,8 +21,10 @@
 
             [Required]
             public double Cijena { get; set; }
+            [Required]
+            public string Oblast { get; set; }
 
-            public ICollection<Termin>? Termini { get; set; }
+        public ICollection<Termin>? Termini { get; set; }
 
         public string PrikaziOsnovneInformacije()
         {

@@ -1,14 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,22 +10,31 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using SmartClinic.Data;
+using SmartClinic.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartClinic.Areas.Identity.Pages.Account;
 
 public class RegisterModel : PageModel
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IUserStore<ApplicationUser> _userStore;
-    private readonly IUserEmailStore<ApplicationUser> _emailStore;
+    private readonly SignInManager<Korisnik> _signInManager;
+    private readonly UserManager<Korisnik> _userManager;
+    private readonly IUserStore<Korisnik> _userStore;
+    private readonly IUserEmailStore<Korisnik> _emailStore;
     private readonly ILogger<RegisterModel> _logger;
     private readonly IEmailSender _emailSender;
 
     public RegisterModel(
-        UserManager<ApplicationUser> userManager,
-        IUserStore<ApplicationUser> userStore,
-        SignInManager<ApplicationUser> signInManager,
+        UserManager<Korisnik> userManager,
+        IUserStore<Korisnik> userStore,
+        SignInManager<Korisnik> signInManager,
         ILogger<RegisterModel> logger,
         IEmailSender emailSender)
     {
@@ -74,6 +75,15 @@ public class RegisterModel : PageModel
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        /// 
+        [Required]
+        [Display(Name = "Ime")]
+        public string Ime { get; set; }
+
+        [Required]
+        [Display(Name = "Prezime")]
+        public string Prezime { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -114,6 +124,10 @@ public class RegisterModel : PageModel
         {
             var user = CreateUser();
 
+            user.Ime = Input.Ime;
+            user.Prezime = Input.Prezime;
+            user.Uloga = "Pacijent";
+
             await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var result = await _userManager.CreateAsync(user, Input.Password);
@@ -121,7 +135,7 @@ public class RegisterModel : PageModel
             if (result.Succeeded)
             {
                 _logger.LogInformation("User created a new account with password.");
-
+                await _userManager.AddToRoleAsync(user, "Pacijent");
                 var userId = await _userManager.GetUserIdAsync(user);
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -154,26 +168,26 @@ public class RegisterModel : PageModel
         return Page();
     }
 
-    private ApplicationUser CreateUser()
+    private Korisnik CreateUser()
     {
         try
         {
-            return Activator.CreateInstance<ApplicationUser>();
+            return Activator.CreateInstance<Korisnik>();
         }
         catch
         {
-            throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
-                $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+            throw new InvalidOperationException($"Can't create an instance of '{nameof(Korisnik)}'. " +
+                $"Ensure that '{nameof(Korisnik)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                 $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
         }
     }
 
-    private IUserEmailStore<ApplicationUser> GetEmailStore()
+    private IUserEmailStore<Korisnik> GetEmailStore()
     {
         if (!_userManager.SupportsUserEmail)
         {
             throw new NotSupportedException("The default UI requires a user store with email support.");
         }
-        return (IUserEmailStore<ApplicationUser>)_userStore;
+        return (IUserEmailStore<Korisnik>)_userStore;
     }
 }

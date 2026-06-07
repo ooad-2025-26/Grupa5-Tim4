@@ -1,0 +1,131 @@
+﻿<div class="appointment-page">
+    <div class="appointment-card">
+
+@section Styles {
+    <link rel="stylesheet" href="/css/termini.css" />
+}
+@model SmartClinic.Models.ViewModels.TerminViewModel
+
+@{
+    ViewData["Title"] = "Zakaži termin";
+}
+
+<h1>Zakaži termin</h1>
+
+<form asp-action="Zakazi" method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="UslugaId"></label>
+        <select asp-for="UslugaId"
+                asp-items="Model.Usluge"
+                class="form-control"
+                id="UslugaId">
+            <option value="">-- Odaberite uslugu --</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DoktorId"></label>
+        <select asp-for="DoktorId"
+                asp-items="Model.Doktori"
+                class="form-control"
+                id="DoktorId">
+            <option value="">-- Odaberite doktora --</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <input asp-for="Datum"
+               type="date"
+               class="form-control"
+               id="Datum" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Vrijeme"></label>
+        <select asp-for="Vrijeme"
+                asp-items="Model.VrijemeOpcije"
+                class="form-control"
+                id="Vrijeme">
+            <option value="">-- Odaberite vrijeme --</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Potvrdi termin
+    </button>
+
+</form>
+<script>
+    document.getElementById("UslugaId").addEventListener("change", function () {
+        const uslugaId = this.value;
+        const doktorSelect = document.getElementById("DoktorId");
+
+        doktorSelect.innerHTML = '<option value="">-- Odaberite doktora --</option>';
+
+        if (!uslugaId) {
+            return;
+        }
+
+        fetch(`/Termins/GetDoktoriZaUslugu?uslugaId=${uslugaId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(doktor => {
+                    const option = document.createElement("option");
+                    option.value = doktor.id;
+                    option.textContent = doktor.ime;
+                    doktorSelect.appendChild(option);
+                });
+            });
+    });
+</script>
+<script>
+
+    function ucitajSlobodnaVremena() {
+
+        const doktorId = document.getElementById("DoktorId").value;
+        const datum = document.getElementById("Datum").value;
+
+        if (!doktorId || !datum)
+            return;
+
+        fetch(`/Termins/GetSlobodnaVremena?doktorId=${doktorId}&datum=${datum}`)
+            .then(response => response.json())
+            .then(data => {
+
+                const vrijemeSelect =
+                    document.getElementById("Vrijeme");
+
+                vrijemeSelect.innerHTML =
+                    '<option value="">-- Odaberite vrijeme --</option>';
+
+                data.forEach(vrijeme => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = vrijeme;
+                    option.textContent = vrijeme;
+
+                    vrijemeSelect.appendChild(option);
+                });
+            });
+    }
+
+    document.getElementById("DoktorId")
+        .addEventListener("change", ucitajSlobodnaVremena);
+
+    document.getElementById("Datum")
+        .addEventListener("change", ucitajSlobodnaVremena);
+
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+    </div>
+</div>

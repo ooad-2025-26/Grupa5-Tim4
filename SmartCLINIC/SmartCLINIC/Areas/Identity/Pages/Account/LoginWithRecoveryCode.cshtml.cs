@@ -1,27 +1,28 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SmartClinic.Data;
+using SmartClinic.Models;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace SmartClinic.Areas.Identity.Pages.Account;
 
 public class LoginWithRecoveryCodeModel : PageModel
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<Korisnik> _signInManager;
+    private readonly UserManager<Korisnik> _userManager;
     private readonly ILogger<LoginWithRecoveryCodeModel> _logger;
 
     public LoginWithRecoveryCodeModel(
-        SignInManager<ApplicationUser> signInManager,
-        UserManager<ApplicationUser> userManager,
+        SignInManager<Korisnik> signInManager,
+        UserManager<Korisnik> userManager,
         ILogger<LoginWithRecoveryCodeModel> logger)
     {
         _signInManager = signInManager;
