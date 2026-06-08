@@ -133,7 +133,430 @@
     transition: 0.3s;
 }
 
-    .view-terms-btn:hover {
+.view-terms-btn:hover {
         background: #5f95db;
         color: white;
     }
+
+.appointment-card {
+    max-width: 1180px;
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+    .admin-table thead th {
+        padding: 14px 16px;
+        color: #0d2240;
+        font-weight: 800;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .admin-table tbody tr {
+        background: #eef5fc;
+        border-radius: 16px;
+    }
+
+    .admin-table tbody td {
+        padding: 16px;
+        vertical-align: middle;
+        white-space: nowrap;
+        color: #243955;
+    }
+
+    .admin-table tbody tr td:first-child {
+        border-radius: 16px 0 0 16px;
+    }
+
+    .admin-table tbody tr td:last-child {
+        border-radius: 0 16px 16px 0;
+    }
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-btn {
+    display: inline-block;
+    text-decoration: none !important;
+    padding: 9px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.details-btn {
+    background: white;
+    color: #0d2240 !important;
+    border: 1px solid #9fc5f1;
+}
+
+.edit-btn {
+    background: #76a7e6;
+    color: white !important;
+}
+
+.details-btn:hover {
+    background: #dcecfb;
+}
+
+.edit-btn:hover {
+    background: #5f95db;
+}
+/* POPRAVKA ZA STRANICU SVI TERMINI */
+
+.appointment-card {
+    max-width: 1150px !important;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: separate !important;
+    border-spacing: 0 12px !important;
+}
+
+    .admin-table thead th {
+        padding: 14px 16px !important;
+        color: #0d2240;
+        font-weight: 800;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .admin-table tbody tr {
+        background: #eef5fc;
+        box-shadow: 0 6px 16px rgba(13, 34, 64, 0.06);
+    }
+
+    .admin-table tbody td {
+        padding: 16px !important;
+        vertical-align: middle;
+        white-space: nowrap;
+        color: #243955;
+        border-bottom: none !important;
+    }
+
+    .admin-table tbody tr td:first-child {
+        border-radius: 16px 0 0 16px;
+    }
+
+    .admin-table tbody tr td:last-child {
+        border-radius: 0 16px 16px 0;
+    }
+
+.admin-actions {
+    display: flex !important;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-btn {
+    display: inline-block !important;
+    text-decoration: none !important;
+    padding: 9px 15px !important;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.details-btn {
+    background: white !important;
+    color: #0d2240 !important;
+    border: 1px solid #9fc5f1;
+}
+
+.edit-btn {
+    background: #76a7e6 !important;
+    color: white !important;
+}
+
+.details-btn:hover {
+    background: #dcecfb !important;
+}
+
+.edit-btn:hover {
+    background: #5f95db !important;
+}
+.details-container {
+    margin-top: 25px;
+}
+
+.details-row {
+    background: #eef5fc;
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-bottom: 15px;
+    font-size: 17px;
+    color: #243955;
+}
+
+    .details-row strong {
+        color: #0d2240;
+        min-width: 120px;
+        display: inline-block;
+    }
+
+.page-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.back-btn {
+    background: #eef5fc;
+    color: #0d2240 !important;
+    text-decoration: none !important;
+    padding: 12px 24px;
+    border-radius: 14px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+    .back-btn:hover {
+        background: #dcecfb;
+    }
+.edit-form {
+    max-width: 650px;
+}
+
+    .edit-form .form-group {
+        margin-bottom: 22px;
+    }
+
+    .edit-form select.form-control {
+        appearance: auto;
+    }
+
+.page-actions button {
+    margin: 0;
+}
+/* MOJI TERMINI */
+
+.moji-termini-card {
+    max-width: 1250px !important;
+}
+
+.moji-termini-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+    .moji-termini-table thead th {
+        color: #0d2240;
+        font-weight: 800;
+        padding: 14px 16px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .moji-termini-table tbody tr {
+        background: #eef5fc;
+        box-shadow: 0 6px 18px rgba(13, 34, 64, 0.06);
+    }
+
+    .moji-termini-table tbody td {
+        padding: 17px 16px;
+        color: #243955;
+        vertical-align: middle;
+        white-space: nowrap;
+        border-bottom: none;
+    }
+
+    .moji-termini-table tbody tr td:first-child {
+        border-radius: 16px 0 0 16px;
+    }
+
+    .moji-termini-table tbody tr td:last-child {
+        border-radius: 0 16px 16px 0;
+    }
+
+.qr-link {
+    background: white;
+    color: #0d2240 !important;
+    border: 1px solid #9fc5f1;
+    padding: 9px 15px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none !important;
+}
+
+    .qr-link:hover {
+        background: #dcecfb;
+    }
+
+.patient-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.change-btn {
+    background: #ffc107;
+    color: #0d2240 !important;
+    padding: 9px 15px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none !important;
+}
+
+.cancel-btn {
+    background: #dc3545;
+    color: white !important;
+    padding: 9px 15px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none !important;
+    border: none;
+}
+
+.realized-badge {
+    display: inline-block;
+    background: #d4edda;
+    color: #155724;
+    padding: 9px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 8px 13px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.status-zakazan {
+    background: #dcecfb;
+    color: #0d2240;
+}
+
+.status-otkazan {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.status-realizovan {
+    background: #d4edda;
+    color: #155724;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+.moji-termini-card {
+    max-width: 1250px !important;
+}
+
+.moji-termini-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+    .moji-termini-table thead th {
+        color: #0d2240;
+        font-weight: 800;
+        padding: 14px 16px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .moji-termini-table tbody tr {
+        background: #eef5fc;
+        box-shadow: 0 6px 18px rgba(13, 34, 64, 0.06);
+    }
+
+    .moji-termini-table tbody td {
+        padding: 17px 16px;
+        color: #243955;
+        vertical-align: middle;
+        white-space: nowrap;
+        border-bottom: none;
+    }
+
+    .moji-termini-table tbody tr td:first-child {
+        border-radius: 16px 0 0 16px;
+    }
+
+    .moji-termini-table tbody tr td:last-child {
+        border-radius: 0 16px 16px 0;
+    }
+
+.qr-link,
+.change-btn,
+.cancel-btn {
+    display: inline-block;
+    text-decoration: none !important;
+    padding: 9px 15px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.qr-link {
+    background: white;
+    color: #0d2240 !important;
+    border: 1px solid #9fc5f1;
+}
+
+.change-btn {
+    background: #ffc107;
+    color: #0d2240 !important;
+}
+
+.cancel-btn {
+    background: #dc3545;
+    color: white !important;
+}
+
+.patient-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.status-badge,
+.realized-badge {
+    display: inline-block;
+    padding: 8px 13px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.status-zakazan {
+    background: #dcecfb;
+    color: #0d2240;
+}
+
+.status-otkazan {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.status-realizovan,
+.realized-badge {
+    background: #d4edda;
+    color: #155724;
+}
+
+.muted-text {
+    color: #6c757d;
+    font-weight: 600;
+}

@@ -1,65 +1,72 @@
 ﻿@model IEnumerable<SmartClinic.Models.Termin>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Svi termini";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" href="~/css/termini.css" asp-append-version="true" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Datum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vrijeme)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pacijent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DoktorId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UslugaKlinike)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Datum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vrijeme)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pacijent.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoktorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UslugaKlinike.Naziv)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TerminId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TerminId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TerminId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="appointment-page">
+    <div class="appointment-card">
+
+        <h1>Svi termini</h1>
+        <div style="margin-bottom:25px;">
+            <a asp-action="SkenirajQR"
+               class="admin-btn edit-btn">
+                📷 Skeniraj QR kod
+            </a>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <p>Trenutno nema zakazanih termina.</p>
+        }
+        else
+        {
+            <div class="table-wrapper">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Pacijent</th>
+                        <th>Doktor</th>
+                        <th>Usluga</th>
+                        <th>Datum</th>
+                        <th>Vrijeme</th>
+                        <th>Status</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var termin in Model)
+                    {
+                        <tr>
+                            <td>@termin.Pacijent?.Ime @termin.Pacijent?.Prezime</td>
+                            <td>@termin.Doktor?.Ime @termin.Doktor?.Prezime</td>
+                            <td>@termin.UslugaKlinike?.Naziv</td>
+                            <td>@termin.Datum.ToString("dd.MM.yyyy")</td>
+                            <td>@termin.Vrijeme</td>
+                            <td>@termin.Status</td>
+
+                            <td class="admin-actions">
+                                <a asp-action="Details"
+                                   asp-route-id="@termin.TerminId"
+                                   class="admin-btn details-btn">
+                                    Detalji
+                                </a>
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@termin.TerminId"
+                                   class="admin-btn edit-btn">
+                                    Uredi
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        }
+
+    </div>
+</div>

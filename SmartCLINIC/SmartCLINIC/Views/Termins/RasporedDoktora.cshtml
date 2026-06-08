@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SmartClinic.Models.Termin>
+
+@{
+    ViewData["Title"] = "Moj raspored";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/termini.css" />
+}
+@using SmartClinic.Models
+<link rel="stylesheet" href="~/css/termini.css" asp-append-version="true" />
+
+<div class="appointment-page">
+    <div class="appointment-card">
+
+        <h1>Moj raspored</h1>
+        <div style="margin-bottom:25px;">
+            <a asp-controller="Termins"
+               asp-action="SkenirajQR"
+               class="admin-btn edit-btn">
+                📷 Skeniraj QR kod
+            </a>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <p>Trenutno nemate zakazanih termina.</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Pacijent</th>
+                        <th>Usluga</th>
+                        <th>Datum</th>
+                        <th>Vrijeme</th>
+                        <th>Status</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var termin in Model)
+                    {
+                        <tr>
+                            <td>@termin.Pacijent?.Ime @termin.Pacijent?.Prezime</td>
+                            <td>@termin.UslugaKlinike?.Naziv</td>
+                            <td>@termin.Datum.ToString("dd.MM.yyyy")</td>
+                            <td>@termin.Vrijeme</td>
+                            <td>@termin.Status</td>
+                            <td>
+                                @if (termin.Status == StatusTermina.Zakazan)
+                                {
+                                    <div class="admin-actions">
+                                        <a asp-action="Edit"
+                                           asp-route-id="@termin.TerminId"
+                                           class="admin-btn edit-btn">
+                                            Uredi
+                                        </a>
+
+                                        <a asp-action="OtkaziTermin"
+                                           asp-route-id="@termin.TerminId"
+                                           class="admin-btn cancel-btn">
+                                            Otkaži
+                                        </a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="muted-text">Nema akcija</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>

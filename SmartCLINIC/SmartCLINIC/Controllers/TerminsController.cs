@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Options;
+using QRCoder;
 using SmartClinic.Data;
 using SmartClinic.Models;
 using SmartClinic.Models.ViewModels;
@@ -10,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using QRCoder;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SmartClinic.Controllers
 {
@@ -25,9 +28,15 @@ namespace SmartClinic.Controllers
         }
 
         // GET: Termins
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Termini.Include(t => t.Pacijent).Include(t => t.UslugaKlinike);
+            var applicationDbContext = _context.Termini
+                .Include(t => t.Doktor)
+                .Include(t => t.Pacijent)
+                .Include(t => t.UslugaKlinike);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -42,6 +51,7 @@ namespace SmartClinic.Controllers
             var termin = await _context.Termini
                 .Include(t => t.Pacijent)
                 .Include(t => t.UslugaKlinike)
+                .Include(t => t.Doktor)
                 .FirstOrDefaultAsync(m => m.TerminId == id);
             if (termin == null)
             {
@@ -80,7 +90,7 @@ namespace SmartClinic.Controllers
         }
 
         // GET: Termins/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Doktor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,7 +103,28 @@ namespace SmartClinic.Controllers
             {
                 return NotFound();
             }
-            ViewData["PacijentId"] = new SelectList(_userManager.Users, "Id", "Email", termin.PacijentId);
+            ViewData["PacijentId"] = new SelectList(
+    _userManager.Users.Select(u => new
+    {
+        u.Id,
+        PunoIme = u.Ime + " " + u.Prezime
+    }),
+    "Id",
+    "PunoIme",
+    termin.PacijentId
+);
+
+            ViewData["DoktorId"] = new SelectList(
+    _userManager.Users.Where(u => u.Uloga == "Doktor")
+        .Select(u => new
+        {
+            u.Id,
+            PunoIme = u.Ime + " " + u.Prezime
+        }),
+    "Id",
+    "PunoIme",
+    termin.DoktorId
+);
             ViewData["UslugaId"] = new SelectList(_context.UslugeKlinike, "UslugaId", "Naziv", termin.UslugaId);
             return View(termin);
         }
@@ -103,7 +134,7 @@ namespace SmartClinic.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Doktor")]
         public async Task<IActionResult> Edit(int id, [Bind("TerminId,Datum,Vrijeme,Status,PacijentId,DoktorId,UslugaId")] Termin termin)
         {
             if (id != termin.TerminId)
@@ -131,13 +162,33 @@ namespace SmartClinic.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PacijentId"] = new SelectList(_userManager.Users, "Id", "Email", termin.PacijentId);
+            ViewData["PacijentId"] = new SelectList(
+    _userManager.Users.Select(u => new
+    {
+        u.Id,
+        PunoIme = u.Ime + " " + u.Prezime
+    }),
+    "Id",
+    "PunoIme",
+    termin.PacijentId
+);
+            ViewData["DoktorId"] = new SelectList(
+    _userManager.Users.Where(u => u.Uloga == "Doktor")
+        .Select(u => new
+        {
+            u.Id,
+            PunoIme = u.Ime + " " + u.Prezime
+        }),
+    "Id",
+    "PunoIme",
+    termin.DoktorId
+);
             ViewData["UslugaId"] = new SelectList(_context.UslugeKlinike, "UslugaId", "Naziv", termin.UslugaId);
             return View(termin);
         }
 
         // GET: Termins/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Doktor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -160,7 +211,7 @@ namespace SmartClinic.Controllers
         // POST: Termins/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Doktor")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var termin = await _context.Termini.FindAsync(id);
@@ -192,6 +243,12 @@ namespace SmartClinic.Controllers
         {
             if (!ModelState.IsValid)
             {
+                return View(await PopuniTerminViewModel(model));
+            }
+            var minimalniDatum = DateTime.Today;
+            if (model.Datum.Date < minimalniDatum)
+            {
+                ModelState.AddModelError("Datum", "Termin nije moguće zakazati za datum koji je već prošao.");
                 return View(await PopuniTerminViewModel(model));
             }
 
@@ -292,7 +349,7 @@ namespace SmartClinic.Controllers
             return model;
         }
 
-       
+
         [Authorize]
         public async Task<IActionResult> Potvrda(int id)
         {
@@ -316,9 +373,7 @@ namespace SmartClinic.Controllers
         }
 
         [Authorize(Roles = "Pacijent")]
-        [Authorize(Roles = "Pacijent")]
-        [Authorize(Roles = "Pacijent")]
-        [Authorize(Roles = "Pacijent")]
+
         public async Task<IActionResult> GetDoktoriZaUslugu(int uslugaId)
         {
             var usluga = await _context.UslugeKlinike
@@ -481,5 +536,78 @@ namespace SmartClinic.Controllers
 
             return RedirectToAction(nameof(MojiTermini));
         }
+        [Authorize(Roles = "Doktor")]
+        public async Task<IActionResult> RasporedDoktora()
+        {
+            var doktor = await _userManager.GetUserAsync(User);
+
+            if (doktor == null)
+            {
+                return Challenge();
+            }
+
+            var termini = await _context.Termini
+                .Include(t => t.Pacijent)
+                .Include(t => t.UslugaKlinike)
+                .Where(t => t.DoktorId == doktor.Id)
+                .OrderBy(t => t.Datum)
+                .ThenBy(t => t.Vrijeme)
+                .ToListAsync();
+
+            return View(termini);
+        }
+
+        [Authorize(Roles = "Admin,Doktor")]
+        public IActionResult SkenirajQR()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin,Doktor")]
+        public async Task<IActionResult> ObradiQR([FromBody] string qrText)
+        {
+            try
+            {
+                var dio = qrText.Split(';')[0];
+
+                int terminId = int.Parse(
+                    dio.Replace("Termin ID:", "").Trim()
+                );
+
+                var termin = await _context.Termini
+                    .FirstOrDefaultAsync(t => t.TerminId == terminId);
+
+                if (termin == null)
+                    return BadRequest("Termin nije pronađen.");
+
+                termin.Status = StatusTermina.Realizovan;
+
+                await _context.SaveChangesAsync();
+
+                return Ok("Termin uspješno realizovan.");
+            }
+            catch
+            {
+                return BadRequest("Neispravan QR kod.");
+            }
+        }
+
+        [Authorize(Roles = "Pacijent")]
+        public async Task<IActionResult> PrikaziQR(int id)
+        {
+            var termin = await _context.Termini
+    .Include(t => t.QRKod)
+    .Include(t => t.UslugaKlinike)
+    .Include(t => t.Doktor)
+    .Include(t => t.Pacijent)
+
+                .FirstOrDefaultAsync(t => t.TerminId == id);
+
+            if (termin == null)
+                return NotFound();
+
+            return View(termin);
+        }
     }
 }
+    

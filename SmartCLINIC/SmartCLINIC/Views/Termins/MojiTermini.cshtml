@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<SmartClinic.Models.Termin>
+@using SmartClinic.Models
 
 @{
     ViewData["Title"] = "Moji termini";
 }
 
+<link rel="stylesheet" href="~/css/termini.css" asp-append-version="true" />
+
 <div class="appointment-page">
-    <div class="appointment-card">
+    <div class="appointment-card moji-termini-card">
 
         <h1>Moji termini</h1>
 
@@ -15,53 +18,83 @@
         }
         else
         {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Usluga</th>
-                        <th>Doktor</th>
-                        <th>Datum</th>
-                        <th>Vrijeme</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach (var termin in Model)
-                    {
+            <div class="table-wrapper">
+                <table class="moji-termini-table">
+                    <thead>
                         <tr>
-                            <td>@termin.UslugaKlinike?.Naziv</td>
-                            <td>@termin.Doktor?.Ime @termin.Doktor?.Prezime</td>
-                            <td>@termin.Datum.ToString("dd.MM.yyyy")</td>
-                            <td>@termin.Vrijeme</td>
-                            <td>@termin.Status</td>
-
-                            <td>
-
-                              
-                                @if (termin.Status != StatusTermina.Otkazan)
-                                {
-                                    <a asp-action="IzmijeniTermin"
-                                       asp-route-id="@termin.TerminId"
-                                       class="btn btn-warning">
-                                        Izmijeni
-                                    </a>
-
-                                    <a asp-action="OtkaziTermin"
-                                       asp-route-id="@termin.TerminId"
-                                       class="btn btn-danger">
-                                        Otkaži
-                                    </a>
-                                }
-
-                            </td>
+                            <th>Usluga</th>
+                            <th>Doktor</th>
+                            <th>Datum</th>
+                            <th>Vrijeme</th>
+                            <th>Status</th>
+                            <th>QR kod</th>
+                            <th>Akcije</th>
                         </tr>
-                    }
+                    </thead>
 
-                </tbody>
-            </table>
+                    <tbody>
+                        @foreach (var termin in Model)
+                        {
+                            <tr>
+                                <td>@termin.UslugaKlinike?.Naziv</td>
+                                <td>@termin.Doktor?.Ime @termin.Doktor?.Prezime</td>
+                                <td>@termin.Datum.ToString("dd.MM.yyyy")</td>
+                                <td>@termin.Vrijeme</td>
+
+                                <td>
+                                    <span class="status-badge status-@termin.Status.ToString().ToLower()">
+                                        @termin.Status
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @if (termin.Status == StatusTermina.Zakazan)
+                                    {
+                                        <a asp-action="PrikaziQR"
+                                           asp-route-id="@termin.TerminId"
+                                           class="qr-link">
+                                            Prikaži QR
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="muted-text">Nije dostupno</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (termin.Status == StatusTermina.Zakazan)
+                                    {
+                                        <div class="patient-actions">
+                                            <a asp-action="IzmijeniTermin"
+                                               asp-route-id="@termin.TerminId"
+                                               class="change-btn">
+                                                Izmijeni
+                                            </a>
+
+                                            <a asp-action="OtkaziTermin"
+                                               asp-route-id="@termin.TerminId"
+                                               class="cancel-btn">
+                                                Otkaži
+                                            </a>
+                                        </div>
+                                    }
+                                    else if (termin.Status == StatusTermina.Realizovan)
+                                    {
+                                        <span class="realized-badge">
+                                            Pregled realizovan
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="muted-text">Nema akcija</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         }
 
     </div>

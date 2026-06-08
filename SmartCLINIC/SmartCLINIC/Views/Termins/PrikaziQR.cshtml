@@ -1,0 +1,36 @@
+﻿@model SmartClinic.Models.Termin
+
+<link rel="stylesheet" href="~/css/termini.css" />
+
+<div class="appointment-page">
+    <div class="appointment-card">
+
+        <h1>QR kod termina</h1>
+
+        <div class="confirm-details">
+
+            <div class="detail-row">
+                <strong>Usluga:</strong>
+                @Model.UslugaKlinike?.Naziv
+            </div>
+
+            <div class="detail-row">
+                <strong>Datum:</strong>
+                @Model.Datum.ToString("dd.MM.yyyy")
+            </div>
+
+            <div class="detail-row">
+                <strong>Vrijeme:</strong>
+                @Model.Vrijeme
+            </div>
+
+        </div>
+
+        <div class="qr-section">
+
+            <img src="data:image/png;base64,@Model.QRKod.VrijednostKoda" />
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Skeniranje QR koda";
+}
+
+<link rel="stylesheet" href="~/css/termini.css" asp-append-version="true" />
+
+<div class="appointment-page">
+    <div class="appointment-card">
+
+        <h1>Skeniranje QR koda</h1>
+
+        <div id="reader" style="width: 420px; margin: 30px auto;"></div>
+
+        <p id="scan-result" style="text-align:center; font-weight:700;"></p>
+
+        <hr />
+
+        <h3>Ručni unos QR sadržaja</h3>
+
+        <textarea id="qrText"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Ovdje zalijepite sadržaj QR koda ako kamera ne radi"></textarea>
+
+        <button type="button"
+                class="confirm-btn"
+                style="margin-top:20px;"
+                onclick="posaljiQR(document.getElementById('qrText').value)">
+            Potvrdi QR kod
+        </button>
+
+    </div>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<script>
+    function posaljiQR(decodedText) {
+    if (!decodedText || decodedText.trim() === "") {
+    alert("QR kod je prazan.");
+    return;
+    }
+
+    fetch('/Termins/ObradiQR', {
+    method: 'POST',
+    headers: {
+    'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(decodedText)
+    })
+    .then(async response => {
+    const text = await response.text();
+
+    if (response.ok) {
+    document.getElementById("scan-result").innerText = text;
+    alert(text);
+    window.location.href = "/Termins";
+    } else {
+    alert(text);
+    }
+    })
+    .catch(error => {
+    alert("Greška pri obradi QR koda.");
+    });
+    }
+
+    function onScanSuccess(decodedText, decodedResult) {
+    html5QrcodeScanner.clear();
+    posaljiQR(decodedText);
+    }
+
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader",
+    {
+    fps: 10,
+    qrbox: { width: 250, height: 250 }
+    },
+    false
+    );
+
+    html5QrcodeScanner.render(onScanSuccess);
+</script>

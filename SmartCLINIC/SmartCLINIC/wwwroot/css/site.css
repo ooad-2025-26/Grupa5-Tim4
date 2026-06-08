@@ -134,3 +134,12 @@ body {
         font-size: 28px;
     }
 }
+.logout-success {
+    text-align: center;
+    background: #d4edda;
+    color: #155724;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}

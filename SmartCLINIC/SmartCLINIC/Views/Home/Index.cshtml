@@ -100,6 +100,20 @@
                             Moji termini
                         </a>
                     }
+                    @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Doktor"))
+                    {
+                        <a asp-controller="Termins"
+                           asp-action="RasporedDoktora">
+                            Moj raspored
+                        </a>
+                    }
+                    @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Termins"
+                           asp-action="Index">
+                            Svi termini
+                        </a>
+                    }
 
                     <a class="login-btn"
                        asp-area="Identity"

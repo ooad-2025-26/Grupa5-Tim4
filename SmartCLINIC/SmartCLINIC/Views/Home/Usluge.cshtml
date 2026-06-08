@@ -24,14 +24,41 @@
             <a asp-controller="Home" asp-action="Kontakt">
                 Kontakt
             </a>
-            <a asp-area="Identity" asp-page="/Account/Login">Prijava</a>
-            <a class="register-link" asp-area="Identity" asp-page="/Account/Register">Registracija</a>
-
-            @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Pacijent"))
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                <a asp-controller="Termins"
-                   asp-action="MojiTermini">
-                    Moji termini
+                @if (User.IsInRole("Pacijent"))
+                {
+                    <a asp-controller="Termins"
+                       asp-action="MojiTermini">
+                        Moji termini
+                    </a>
+                }
+                @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Doktor"))
+                {
+                    <a asp-controller="Termins"
+                       asp-action="RasporedDoktora">
+                        Moj raspored
+                    </a>
+                }
+                @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Termins"
+                       asp-action="Index">
+                        Svi termini
+                    </a>
+                }
+                <a class="login-btn"
+                   asp-area="Identity"
+                   asp-page="/Account/Logout">
+                    Odjava
+                </a>
+            }
+            else
+            {
+                <a class="login-btn"
+                   asp-area="Identity"
+                   asp-page="/Account/Login">
+                    Prijava
                 </a>
             }
         </div>

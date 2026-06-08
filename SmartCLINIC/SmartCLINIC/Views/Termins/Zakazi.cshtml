@@ -37,10 +37,10 @@
     </div>
 
     <div class="mb-3">
-        <input asp-for="Datum"
-               type="date"
-               class="form-control"
-               id="Datum" />
+                <input asp-for="Datum"
+                       type="date"
+                       class="form-control"
+                       min="@DateTime.Today.ToString("yyyy-MM-dd")" />
     </div>
 
     <div class="mb-3">

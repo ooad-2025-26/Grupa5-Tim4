@@ -54,13 +54,44 @@
 
             </a>
 
-            <a class="login-btn"
-               asp-area="Identity"
-               asp-page="/Account/Login">
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Pacijent"))
+                {
+                    <a asp-controller="Termins"
+                       asp-action="MojiTermini">
+                        Moji termini
+                    </a>
+                }
+                @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Doktor"))
+                {
+                    <a asp-controller="Termins"
+                       asp-action="RasporedDoktora">
+                        Moj raspored
+                    </a>
+                }
+                @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Termins"
+                       asp-action="Index">
+                        Svi termini
+                    </a>
+                }
 
-                Prijava
-
-            </a>
+                <a class="login-btn"
+                   asp-area="Identity"
+                   asp-page="/Account/Logout">
+                    Odjava
+                </a>
+            }
+            else
+            {
+                <a class="login-btn"
+                   asp-area="Identity"
+                   asp-page="/Account/Login">
+                    Prijava
+                </a>
+            }
 
         </div>
 
