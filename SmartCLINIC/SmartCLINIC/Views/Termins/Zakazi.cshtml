@@ -40,7 +40,9 @@
                 <input asp-for="Datum"
                        type="date"
                        class="form-control"
-                       min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                       min="@DateTime.Today.ToString("yyyy-MM-dd")"
+                data-msg-min="Termin nije moguće zakazati za datum koji je već prošao." />
+               
     </div>
 
     <div class="mb-3">
@@ -122,10 +124,9 @@
 
 </script>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+        @section Scripts {
+            <partial name="_ValidationScriptsPartial" />
+        }
+
     </div>
 </div>

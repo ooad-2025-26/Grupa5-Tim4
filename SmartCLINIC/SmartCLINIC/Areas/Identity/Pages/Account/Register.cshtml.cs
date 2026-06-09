@@ -76,16 +76,16 @@ public class RegisterModel : PageModel
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         /// 
-        [Required]
+        [Required(ErrorMessage = "Ime je obavezno.")]
         [Display(Name = "Ime")]
         public string Ime { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Prezime je obavezno.")]
         [Display(Name = "Prezime")]
         public string Prezime { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email je obavezan.")]
+        [EmailAddress(ErrorMessage = "Unesite ispravnu email adresu.")]
         [Display(Name = "Email")]
         public string Email { get; set; } = default!;
 
@@ -93,10 +93,10 @@ public class RegisterModel : PageModel
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Lozinka je obavezna.")]
+        [StringLength(100, ErrorMessage = "Lozinka mora imati najmanje 6 karaktera, sadržavati veliko slovo i znak koji nije alfanumerički.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Lozinka")]
         public string Password { get; set; } = default!;
 
         /// <summary>
@@ -104,8 +104,8 @@ public class RegisterModel : PageModel
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Potvrdi lozinku")]
+        [Compare("Password", ErrorMessage = "Lozinke se ne podudaraju.")]
         public string? ConfirmPassword { get; set; }
     }
 

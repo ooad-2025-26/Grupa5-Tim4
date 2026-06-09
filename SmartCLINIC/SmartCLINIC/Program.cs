@@ -22,6 +22,13 @@ builder.Services.AddDefaultIdentity<Korisnik>(options =>
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+});
+
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
@@ -134,7 +141,6 @@ new UslugaKlinike { Naziv = "Pregled prostate", Oblast = "Urologija", Cijena = 8
     context.SaveChanges();
     }
 }
-
 
 
 // Configure the HTTP request pipeline.
