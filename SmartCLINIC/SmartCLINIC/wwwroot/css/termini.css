@@ -560,3 +560,18 @@
     color: #6c757d;
     font-weight: 600;
 }
+.delete-action-btn,
+.delete-btn {
+    background: #dc3545 !important;
+    color: white !important;
+    text-decoration: none !important;
+    padding: 9px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    border: none;
+}
+
+    .delete-action-btn:hover,
+    .delete-btn:hover {
+        background: #bb2d3b !important;
+    }

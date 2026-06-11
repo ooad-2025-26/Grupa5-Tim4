@@ -188,6 +188,7 @@ namespace SmartClinic.Controllers
         }
 
         // GET: Termins/Delete/5
+        /*
         [Authorize(Roles = "Admin,Doktor")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -207,8 +208,9 @@ namespace SmartClinic.Controllers
 
             return View(termin);
         }
-
+        */
         // POST: Termins/Delete/5
+        /*
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Doktor")]
@@ -222,7 +224,7 @@ namespace SmartClinic.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
+        } */
 
         private bool TerminExists(int id)
         {
@@ -607,6 +609,48 @@ namespace SmartClinic.Controllers
                 return NotFound();
 
             return View(termin);
+        }
+       // GET: Termins/Delete/5
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var termin = await _context.Termini
+                .Include(t => t.Pacijent)
+                .Include(t => t.Doktor)
+                .Include(t => t.UslugaKlinike)
+                .FirstOrDefaultAsync(t => t.TerminId == id);
+
+            if (termin == null)
+                return NotFound();
+
+            return View(termin);
+        } 
+
+        // POST: Termins/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var termin = await _context.Termini
+                .Include(t => t.QRKod)
+                .FirstOrDefaultAsync(t => t.TerminId == id);
+
+            if (termin == null)
+                return NotFound();
+
+            if (termin.QRKod != null)
+            {
+                _context.QRKodovi.Remove(termin.QRKod);
+            }
+
+            _context.Termini.Remove(termin);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

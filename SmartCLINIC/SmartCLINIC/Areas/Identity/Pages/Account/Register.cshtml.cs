@@ -160,7 +160,19 @@ public class RegisterModel : PageModel
             }
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                string poruka = error.Code switch
+                {
+                    "PasswordRequiresNonAlphanumeric" => "Lozinka mora sadržavati najmanje jedan specijalni znak.",
+                    "PasswordRequiresDigit" => "Lozinka mora sadržavati najmanje jedan broj.",
+                    "PasswordRequiresUpper" => "Lozinka mora sadržavati najmanje jedno veliko slovo.",
+                    "PasswordTooShort" => "Lozinka mora imati najmanje 6 karaktera.",
+                    "DuplicateUserName" => "Korisnik sa ovim emailom već postoji.",
+                    "DuplicateEmail" => "Korisnik sa ovim emailom već postoji.",
+                    "InvalidEmail" => "Unesite ispravnu email adresu.",
+                    _ => error.Description
+                };
+
+                ModelState.AddModelError(string.Empty, poruka);
             }
         }
 
